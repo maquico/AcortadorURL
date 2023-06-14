@@ -23,6 +23,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install Docker
       run: |
+        sudo apt-get remove moby-containerd containerd
+        sudo apt-get remove moby-runc runc
         sudo apt-get purge docker docker-engine docker.io containerd runc
         sudo apt-get update
         sudo apt-get install docker.io -y
