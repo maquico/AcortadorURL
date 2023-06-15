@@ -44,5 +44,5 @@ jobs:
     - name: Install Dependencies
       run: npm ci
       
-    - name: Build
-      run: npm run build -- --debug
+    - name: Transpile
+      run: npx babel src --out-dir dist
