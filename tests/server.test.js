@@ -7,8 +7,8 @@ beforeAll(async () => {
   server = await app.listen(3000);
 });
 
-afterAll(async () => {
-  await server.close();
+afterAll((done) => {
+  server.close(done);
 });
 
 describe('Link Shortener', () => {
