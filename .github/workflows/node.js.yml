@@ -46,4 +46,8 @@ jobs:
       
     - name: Transpile
       run: npx babel src --out-dir dist --presets=@babel/preset-env
+
+    - name: Style and Syntactic Analysis
+      run: npx eslint src
+    
       
