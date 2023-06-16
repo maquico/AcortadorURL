@@ -1,6 +1,14 @@
 const request = require('supertest');
 const app = require('../src/server'); // assuming your server file is named "server.js"
 
+beforeAll(async () => {
+  await app.listen(3000);
+});
+
+afterAll(async () => {
+  await app.close();
+});
+
 describe('Link Shortener', () => {
   describe('POST /shortUrls', () => {
     it('should create a new short URL', async () => {
