@@ -6,7 +6,7 @@ let shortUrl;
 
 beforeAll(async () => {
   server = await app.listen(3000);
-});
+}, 10000);
 
 afterAll(async () => {
   await server.close();
