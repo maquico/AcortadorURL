@@ -4,7 +4,7 @@ const app = require('../src/server');
 let server;
 
 beforeAll(async () => {
-  server = await app.listen(5000);
+  server = await app.listen(3000);
 });
 
 afterAll(async () => {
