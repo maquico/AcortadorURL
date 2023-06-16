@@ -16,7 +16,7 @@ describe('Link Shortener', () => {
   describe('GET /:shortUrl', () => {
     beforeAll(async () => {
       // Perform the necessary steps to generate the short URL and store it in the `shortUrl` variable
-      const inputUrl = 'https://example.com'; // Replace with your desired input URL
+      const inputUrl = 'https://youtube.com'; // Replace with your desired input URL
       const response = await request(app).post('/shortUrls').send({ fullUrl: inputUrl });
       shortUrl = response.body.shortUrl; // Assuming the generated short URL is returned in the response body
     });
@@ -25,7 +25,7 @@ describe('Link Shortener', () => {
       const response = await request(app).get(`/${shortUrl}`);
 
       expect(response.status).toBe(302);
-      expect(response.header['location']).toBe('https://example.com'); // Replace with the expected full URL
+      expect(response.header['location']).toBe('https://youtube.com'); // Replace with the expected full URL
     });
   });
 });
