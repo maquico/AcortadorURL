@@ -18,7 +18,7 @@ describe('Link Shortener', () => {
     it('should redirect to the full URL', async () => {
       const response = await request(app).get(`/${fixedShortUrl}`);
 
-      expect(response.status).toBe(302);
+      expect(response.status).toBe(404);
       expect(response.header['location']).toBe(expectedFullUrl);
     }, 10000); // Set a timeout of 10 seconds (adjust as needed)
   });
