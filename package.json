@@ -2,10 +2,10 @@
   "name": "url-shortener",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ejs",
+  "main": "src/server.js",
   "scripts": {
-    "devStart": "nodemon server.js",
-    "build": "node server.js"
+    "devStart": "nodemon src/server.js",
+    "build": "node src/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.1",
+    "path": "^0.12.7",
     "shortid": "^2.2.15"
   },
   "devDependencies": {
@@ -22,6 +23,8 @@
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
     "eslint": "^8.42.0",
-    "nodemon": "^2.0.22"
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
   }
 }
