@@ -2,8 +2,8 @@ const request = require('supertest');
 const app = require('../src/server');
 
 let server;
-const fixedShortUrl = 'http://localhost:5000/P1ZBvEFkL'; // Replace with a fixed short URL
-const expectedFullUrl = 'https://github.com/Wolbik/AcortadorURL'; // Replace with the expected full URL
+let shortUrl;
+const fullUrl = 'https://youtube.com'; // Replace with the full URL you want to test
 
 beforeAll(async () => {
   server = await app.listen(3000);
@@ -16,10 +16,16 @@ afterAll(async () => {
 describe('Link Shortener', () => {
   describe('GET /:shortUrl', () => {
     it('should redirect to the full URL', async () => {
-      const response = await request(app).get(`/${fixedShortUrl}`);
+      // Create a new short URL
+      const response = await request(app).post('/shorten').send({ fullUrl });
+      expect(response.status).toBe(201);
+      expect(response.body).toHaveProperty('shortUrl');
+      shortUrl = response.body.shortUrl;
 
-      expect(response.status).toBe(404);
-      expect(response.header['location']).toBe(expectedFullUrl);
-    }, 10000); // Set a timeout of 10 seconds (adjust as needed)
+      // Access the short URL and verify redirection
+      const redirectResponse = await request(app).get(`/${shortUrl}`);
+      expect(redirectResponse.status).toBe(302);
+      expect(redirectResponse.header['location']).toBe(fullUrl);
+    });
   });
 });
