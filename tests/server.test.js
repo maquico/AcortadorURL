@@ -2,8 +2,8 @@ const request = require('supertest');
 const app = require('../src/server');
 
 let server;
-const fixedShortUrl = 'abcd'; // Replace with a fixed short URL
-const expectedFullUrl = 'https://www.youtube.com/'; // Replace with the expected full URL
+const fixedShortUrl = 'http://localhost:5000/P1ZBvEFkL'; // Replace with a fixed short URL
+const expectedFullUrl = 'https://github.com/Wolbik/AcortadorURL'; // Replace with the expected full URL
 
 beforeAll(async () => {
   server = await app.listen(3000);
