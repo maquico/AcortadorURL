@@ -3,11 +3,6 @@ const mongoose = require('mongoose')
 const ShortUrl = require('./models/shortUrl')
 require('dotenv').config(); 
 const app = express()
-const path = require('path'); 
-
-module.exports = app;
-
-app.set('views', path.join(__dirname, 'views'));
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

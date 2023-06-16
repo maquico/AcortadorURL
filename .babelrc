@@ -1,7 +1,4 @@
 {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "ignore": ["views"]
+    "presets": ["@babel/preset-env"]
   }
   

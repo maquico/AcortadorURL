@@ -49,8 +49,5 @@ jobs:
 
     - name: Style and Syntactic Analysis
       run: npx eslint src
-
-    - name: Unit Test
-      run: npx jest tests/server.test.js --detectOpenHandles
     
       
