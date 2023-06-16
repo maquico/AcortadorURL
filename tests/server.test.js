@@ -1,8 +1,9 @@
+
 const request = require('supertest');
-const app = require('../src/server'); // assuming your server file is named "server.js"
+const app = require('../src/server');
 
 beforeAll(async () => {
-  await app.listen(3000);
+  await app.listen(5000);
 });
 
 afterAll(async () => {
