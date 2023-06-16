@@ -3,7 +3,7 @@ const app = require('../src/server');
 
 let server;
 const fixedShortUrl = 'abcd'; // Replace with a fixed short URL
-const expectedFullUrl = 'https://youtube.com'; // Replace with the expected full URL
+const expectedFullUrl = 'https://www.youtube.com/'; // Replace with the expected full URL
 
 beforeAll(async () => {
   server = await app.listen(3000);
