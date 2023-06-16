@@ -17,7 +17,7 @@ describe('Link Shortener', () => {
       const response = await request(app).get('/existing-short-url');
 
       expect(response.status).toBe(302);
-      expect(response.header['location']).toBe('https://example.com'); // Replace with the expected full URL
+      expect(response.header['location']).toBe('https://www.youtube.com/'); 
     });
   });
 });
