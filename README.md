@@ -22,5 +22,3 @@ Para ejecutar el proyecto, se debe ejecutar el siguiente comando en la carpeta r
 - Angel Moreno 1104666
 - Rolbik Urbaez 1105721 
 - Huan Hao Wu 1104326
-
-- 
