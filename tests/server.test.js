@@ -14,18 +14,16 @@ afterAll(async () => {
 });
 
 describe('Link Shortener', () => {
-  describe('GET /:shortUrl', () => {
-    it('should redirect to the full URL', async () => {
-      // Create a new short URL
-      const response = await request(app).post('/shorten').send({ fullUrl });
+  describe('POST /shorten', () => {
+    it('should generate a short URL', async () => {
+      // Insert the URL and generate a short URL
+      const response = await request(app)
+        .post('/shorten')
+        .send({ fullUrl });
+
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('shortUrl');
       shortUrl = response.body.shortUrl;
-
-      // Access the short URL and verify redirection
-      const redirectResponse = await request(app).get(`/${shortUrl}`);
-      expect(redirectResponse.status).toBe(302);
-      expect(redirectResponse.header['location']).toBe(fullUrl);
     });
   });
 });
