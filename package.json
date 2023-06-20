@@ -2,10 +2,10 @@
   "name": "url-shortener",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ejs",
+  "main": "src/server.js",
   "scripts": {
-    "devStart": "nodemon server.js",
-    "build": "node server.js"
+    "devStart": "nodemon src/server.js",
+    "build": "node src/server.js"
   },
   "author": "",
   "license": "ISC",
