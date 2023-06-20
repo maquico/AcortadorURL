@@ -36,5 +36,5 @@ app.get('/:shortUrl', async (req, res) => {
   res.redirect(shortUrl.full)
 })
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT || 3000);
 module.exports = app; // Export the app object
