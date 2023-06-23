@@ -16,6 +16,23 @@ Para ejecutar el proyecto, se debe ejecutar el siguiente comando en la carpeta r
 -- docker build -t mongo .
 -- docker run --name urlmongo -p 27017:27017 -d mongo
 
+## Docker hub
+Para montar en dockerhub tanto el contenedor de la base de datos como el de la aplicación se deben correr los siguientes comandos sustituyendo por tu usuario de dockerhub:
+-- docker login 
+-- (Te pedirá colocar usuario y contraseña)
+bd:
+-- docker build -t usuario/acortador_bd .
+-- docker tag usuario/acortador_bd usuario/acortador_bd:v1.0
+-- docker push usuario/acortador_bd:v1.0
+app:
+-- docker build -t usuario/acortador_url .
+-- docker tag usuario/acortador_url usuario/acortador_url:v1.0
+-- docker push usuario/acortador_url:v1.0
+
+Correr 
+-- docker-compose up
+Dirigirse a http://localhost:5000/
+
 # Integrantes del equipo: 
 - Eros Bencosme 1104510
 - Gleidy Espinal 1104225
