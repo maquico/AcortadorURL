@@ -13,7 +13,7 @@ RUN npm ci --only=production
 # Copy the rest of the application code to the container.
 COPY . .
 
-# Expose the port your application listens on (5000 in your case).
+# Expose the port your application listens on 
 EXPOSE 5000
 
 # Set any necessary environment variables.

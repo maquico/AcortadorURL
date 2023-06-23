@@ -1,0 +1,14 @@
+version: "3"
+services:
+  web:
+    image: angelm27/acortador_url:v1.0
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+  db:
+    image: angelm27/acortador_bd:v1.0
+    volumes:
+      - dbdata:/data/db
+volumes:
+  dbdata:

@@ -1,6 +1,6 @@
 FROM mongo:latest
 
-WORKDIR /data/DB
+WORKDIR /data/db
 
 EXPOSE 27017
 
