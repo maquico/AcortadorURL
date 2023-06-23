@@ -66,7 +66,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ${{ secrets.DOCKER_HUB_USER }}/fast-tags
+            ${{ secrets.DOCKER_HUB_USER }}/acortador_url
           tags: |
             type=schedule
             type=ref,event=branch
