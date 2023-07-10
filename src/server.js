@@ -21,6 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Define GraphQL schema
 const ShortUrlType = new GraphQLObjectType({
   name: 'ShortUrl',
+  // eslint-disable-next-line no-unused-vars
   fields: {
     _id: { type: GraphQLString },
     full: { type: GraphQLString },
@@ -79,7 +80,7 @@ const RootMutationType = new GraphQLObjectType({
             }
           }
         `;
-
+        // eslint-disable-next-line no-unused-vars
         const { data } = await graphql(schema, getShortUrlQuery);
 
         if (!data.getShortUrl) {
