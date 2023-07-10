@@ -17,19 +17,29 @@ Para ejecutar el proyecto, se debe ejecutar el siguiente comando en la carpeta r
 -- docker run --name urlmongo -p 27017:27017 -d mongo
 
 ## Docker hub
-Para montar en dockerhub tanto el contenedor de la base de datos como el de la aplicación se deben correr los siguientes comandos sustituyendo por tu usuario de dockerhub:
--- docker login 
--- (Te pedirá colocar usuario y contraseña)
-bd:
--- docker build -t usuario/acortador_bd .
--- docker tag usuario/acortador_bd usuario/acortador_bd:v1.3
--- docker push usuario/acortador_bd:v1.3
-app:
--- docker build -t usuario/acortador_url .
--- docker tag usuario/acortador_url usuario/acortador_url:v1.3
--- docker push usuario/acortador_url:v1.3
+El primer paso es hacer login usando tu usario de dockerhub:
+ -- docker login 
+  -- (Te pedirá colocar usuario y contraseña)
 
-Correr 
+Si vas a crear una nueva imagen de los contenedores ya sea de la web o de la bd ve a los comandos A. Si la imagen que vas a utilizar esta creada ve a los comandos B.
+
+Comandos A:
+    Para montar en dockerhub tanto el contenedor de la base de datos como el de la aplicación se deben correr los siguientes comandos         sustituyendo por tu usuario de dockerhub:
+      bd:
+      -- docker build -t usuario/acortador_bd .
+      -- docker tag usuario/acortador_bd usuario/acortador_bd:v1.3
+      -- docker push usuario/acortador_bd:v1.3
+      app:
+      -- docker build -t usuario/acortador_url .
+      -- docker tag usuario/acortador_url usuario/acortador_url:v1.3
+      -- docker push usuario/acortador_url:v1.3
+
+Comandos B:
+    Si ya se hizo build de la imagen luego del login ejecutar:
+      -- docker pull usuario/acortador_bd:v1.3
+      -- docker pull usuario/acortador_url:v1.3
+
+Correr: 
 -- docker-compose up
 Dirigirse a http://localhost:5000/
 
