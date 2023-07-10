@@ -1,12 +1,11 @@
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLList } = require('graphql');
+const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLList, GraphQLInt } = require('graphql');
 const mongoose = require('mongoose');
 const ShortUrl = require('./models/shortUrl');
 require('dotenv').config();
 const path = require('path');
 const { graphql } = require('graphql');
-
 
 const app = express();
 
@@ -19,7 +18,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.set('views', path.join(__dirname, 'views'));
 
-
 // Define GraphQL schema
 const ShortUrlType = new GraphQLObjectType({
   name: 'ShortUrl',
@@ -27,18 +25,28 @@ const ShortUrlType = new GraphQLObjectType({
     _id: { type: GraphQLString },
     full: { type: GraphQLString },
     short: { type: GraphQLString },
-    clicks: { type: GraphQLString }
+    clicks: { type: GraphQLInt }
   }
 });
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    shortUrls: {
+    getAllShortUrls: {
       type: new GraphQLList(ShortUrlType),
       resolve: async () => {
         const shortUrls = await ShortUrl.find();
         return shortUrls;
+      }
+    },
+    getShortUrl: {
+      type: ShortUrlType,
+      args: {
+        short: { type: GraphQLString }
+      },
+      resolve: async (_, { short }) => {
+        const shortUrl = await ShortUrl.findOne({ short });
+        return shortUrl;
       }
     }
   }
@@ -56,6 +64,38 @@ const RootMutationType = new GraphQLObjectType({
         const shortUrl = await ShortUrl.create({ full });
         return shortUrl;
       }
+    },
+    incrementClicks: {
+      type: ShortUrlType,
+      args: {
+        short: { type: GraphQLString }
+      },
+      resolve: async (_, { short }) => {
+        const getShortUrlQuery = `
+          query {
+            getShortUrl(short: "${short}") {
+              full
+              clicks
+            }
+          }
+        `;
+
+        const { data } = await graphql(schema, getShortUrlQuery);
+
+        if (!data.getShortUrl) {
+          throw new Error('Short URL not found');
+        }
+
+        const { full, clicks } = data.getShortUrl;
+
+        const updatedShortUrl = await ShortUrl.findOneAndUpdate(
+          { short },
+          { $set: { clicks: clicks + 1 } },
+          { new: true }
+        );
+
+        return updatedShortUrl;
+      }
     }
   }
 });
@@ -70,21 +110,34 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
-app.get('/', async (req, res) => {
-  const shortUrls = await ShortUrl.find();
-  res.render('index', { shortUrls });
+app.get('/', (req, res) => {
+  graphql(schema, `{ getAllShortUrls { full, short, clicks } }`)
+    .then(result => {
+      res.render('index', { shortUrls: result.data.getAllShortUrls });
+    })
+    .catch(error => {
+      console.error(error);
+      res.sendStatus(500);
+    });
 });
 
 app.get('/:shortUrl', async (req, res) => {
   try {
+    const query = `
+      mutation {
+        incrementClicks(short: "${req.params.shortUrl}") {
+          full
+        }
+      }
+    `;
+
+    await graphql(schema, query, null, req, req.body);
+
     const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
 
-    if (shortUrl == null) {
+    if (!shortUrl) {
       return res.sendStatus(404);
     }
-
-    shortUrl.clicks++;
-    await shortUrl.save();
 
     return res.redirect(shortUrl.full);
   } catch (error) {
@@ -92,7 +145,6 @@ app.get('/:shortUrl', async (req, res) => {
     return res.sendStatus(500);
   }
 });
-
 
 app.post('/shortUrls', async (req, res) => {
   const fullUrl = req.body.fullUrl;
@@ -127,8 +179,6 @@ app.post('/shortUrls', async (req, res) => {
     return res.sendStatus(500);
   }
 });
-
-
 
 app.listen(process.env.PORT || 3000);
 module.exports = app; // Export the app object
