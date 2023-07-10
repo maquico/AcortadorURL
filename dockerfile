@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies using npm.
-RUN npm ci --only=production
+RUN npm install
 
 # Copy the rest of the application code to the container.
 COPY . .
@@ -20,4 +20,4 @@ EXPOSE 5000
 ENV NODE_ENV production
 
 # The default command to run when the container starts.
-CMD [ "node", "main.js" ]
+CMD [ "node", "src/server.js" ]
