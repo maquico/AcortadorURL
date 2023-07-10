@@ -22,12 +22,12 @@ Para montar en dockerhub tanto el contenedor de la base de datos como el de la a
 -- (Te pedirá colocar usuario y contraseña)
 bd:
 -- docker build -t usuario/acortador_bd .
--- docker tag usuario/acortador_bd usuario/acortador_bd:v1.0
--- docker push usuario/acortador_bd:v1.0
+-- docker tag usuario/acortador_bd usuario/acortador_bd:v1.3
+-- docker push usuario/acortador_bd:v1.3
 app:
 -- docker build -t usuario/acortador_url .
--- docker tag usuario/acortador_url usuario/acortador_url:v1.0
--- docker push usuario/acortador_url:v1.0
+-- docker tag usuario/acortador_url usuario/acortador_url:v1.3
+-- docker push usuario/acortador_url:v1.3
 
 Correr 
 -- docker-compose up
